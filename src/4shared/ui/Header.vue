@@ -4,7 +4,7 @@
       <router-link to="/" class="nav-link">Главная</router-link>
       <router-link to="/convert" class="nav-link">Конвертация</router-link>
     </nav>
-    <select v-model="baseCurrency" @change="updateBaseCurrency" class="currency-select">
+    <select v-model="selectedCurrency" @change="updateBaseCurrency" class="currency-select">
       <option value="USD">USD</option>
       <option value="EUR">EUR</option>
       <option value="RUB">RUB</option>
@@ -13,14 +13,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useCurrencyRates } from '../../3features/CurrencyRates/model';
+import { computed, ref } from 'vue';
+import { useCurrencyRates } from '../../3features/CurrencyRates/model.ts';
 
 const store = useCurrencyRates();
-const baseCurrency = ref(store.baseCurrency);
+const selectedCurrency = ref(store.baseCurrency.value);
 
 function updateBaseCurrency() {
-  store.setBaseCurrency(baseCurrency.value);
+  store.setBaseCurrency(selectedCurrency.value);
 }
 </script>
 

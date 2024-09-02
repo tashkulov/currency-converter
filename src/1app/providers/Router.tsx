@@ -1,4 +1,3 @@
-// src/app/providers/Router.ts
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '../../2pages/HomePage/index.vue'; // Страница "Главная"
 import ConvertPage from '../../2pages/ConvertPage/index.vue'; // Страница "Конвертация"
