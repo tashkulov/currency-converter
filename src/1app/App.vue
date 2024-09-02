@@ -12,9 +12,5 @@ import Header from '../4shared/ui/Header.vue'; // Подключение ком�
 </script>
 
 <style scoped>
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+
 </style>

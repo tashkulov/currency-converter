@@ -34,7 +34,6 @@ const currency2 = ref('RUB');
 const value1 = ref(0);
 const value2 = ref(0);
 
-// Состояние для хранения курсов валют
 const rates = ref<Record<string, number>>({});
 
 async function loadRates() {
@@ -47,43 +46,34 @@ async function loadRates() {
   }
 }
 
-// Загрузка курсов при инициализации компонента
 loadRates();
 
-// Функция для конвертации значений при вводе в поля
 function convert(source: number) {
   if (!rates.value) return;
 
   if (source === 1) {
-    // Конвертация из первой валюты во вторую
     const conversionRate = getConversionRate(currency1.value, currency2.value);
     value2.value = +(value1.value * conversionRate).toFixed(2);
   } else {
-    // Конвертация из второй валюты в первую
     const conversionRate = getConversionRate(currency2.value, currency1.value);
     value1.value = +(value2.value * conversionRate).toFixed(2);
   }
 }
 
-// Функция для получения курса конвертации между двумя валютами
 function getConversionRate(fromCurrency: string, toCurrency: string): number {
-  // Если исходная валюта совпадает с базовой (USD), возвращаем прямой курс
   if (fromCurrency === 'USD') {
     return rates.value[toCurrency] || 1;
   }
 
-  // Если целевая валюта совпадает с базовой (USD), возвращаем обратный курс
   if (toCurrency === 'USD') {
     return 1 / (rates.value[fromCurrency] || 1);
   }
 
-  // В других случаях сначала переводим из исходной валюты в USD, затем из USD в целевую валюту
   const fromToUSD = 1 / (rates.value[fromCurrency] || 1);
   const usdToTarget = rates.value[toCurrency] || 1;
   return fromToUSD * usdToTarget;
 }
 
-// Следим за изменением выбранных валют и конвертируем значения
 watch([currency1, currency2], () => convert(1));
 </script>
 
@@ -91,20 +81,65 @@ watch([currency1, currency2], () => convert(1));
 .converter-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.converter-form:hover {
+  border-color: #d4d4d4;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .converter-row {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   align-items: center;
 }
 
 .currency-input {
   flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.currency-input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.currency-input:focus {
+  border-color: #5c9ded;
+  box-shadow: 0 0 0 3px rgba(92, 157, 237, 0.3);
+  outline: none;
+  background-color: #fdfdfd;
+}
+
+.currency-input:hover {
+  border-color: #c0c0c0;
+}
+
+.currency-input:disabled {
+  background-color: #f0f0f0;
+  border-color: #d4d4d4;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.currency-input:active {
+  border-color: #5c9ded;
+  background-color: #f0f8ff;
 }
 </style>
