@@ -116,14 +116,14 @@ watch([currency1, currency2], () => convert(1));
 }
 
 .currency-input:focus {
-  border-color: #007bff; /* Яркий цвет при фокусе для акцента */
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2); /* Светящийся эффект */
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2);
   outline: none;
-  background-color: #fff; /* Слегка светлее при фокусе */
+  background-color: #fff;
 }
 
 .currency-input:hover {
-  border-color: #bbb; /* Более четкая граница при наведении */
+  border-color: #bbb;
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -136,6 +136,6 @@ watch([currency1, currency2], () => convert(1));
 
 .currency-input:active {
   border-color: #007bff;
-  background-color: #e8f0fe; /* Легкий акцент при клике */
+  background-color: #e8f0fe;
 }
 </style>

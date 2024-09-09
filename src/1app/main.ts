@@ -1,8 +1,8 @@
 // src/app/index.ts
 import { createApp } from 'vue';
 import App from './App.vue';
-import { router } from './providers/Router'; // Импорт роутера
-import { store } from './providers/Store'; // Подключение Pinia стора, если есть
+import { router } from './providers/Router';
+import { store } from './providers/Store';
 
 const app = createApp(App);
 
